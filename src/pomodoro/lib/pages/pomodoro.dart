@@ -9,9 +9,14 @@ class Pomodoro extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Text('Pomodoro'),
-          TimeInput(title: 'Trabalho', value: 25),
-          TimeInput(title: 'Descanso', value: 5)
+          Text('Pomodoro'),          
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TimeInput(title: 'Trabalho', value: 25, titleColor: Colors.red.shade800),
+              TimeInput(title: 'Descanso', value: 5, titleColor: Colors.green.shade800)
+            ],
+          ),
         ]
       )
     );
