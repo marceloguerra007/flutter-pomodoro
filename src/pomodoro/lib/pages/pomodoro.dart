@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro/components/TimeInput.dart';
 import 'package:pomodoro/components/timer.dart';
+import 'package:pomodoro/store/pomodoro.store.dart';
+import 'package:provider/provider.dart';
 
 class Pomodoro extends StatelessWidget {
   const Pomodoro({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final store = Provider.of<PomodoroStore>(context);
+    
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -19,8 +23,8 @@ class Pomodoro extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                TimeInput(title: 'Trabalho', value: 25, titleColor: Colors.red.shade800),
-                TimeInput(title: 'Descanso', value: 5, titleColor: Colors.green.shade800)
+                TimeInput(title: 'Trabalho', value: store.workTime, titleColor: Colors.red.shade800),
+                TimeInput(title: 'Descanso', value: store.restTime, titleColor: Colors.green.shade800)
               ],
             ),
           ),
