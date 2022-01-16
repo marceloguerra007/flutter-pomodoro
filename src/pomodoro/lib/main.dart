@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:pomodoro/pages/pomodoro.dart';
 import 'package:pomodoro/store/counter.store.dart';
 
 void main() {
@@ -15,12 +16,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: Pomodoro(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
+/*
 final store = CounterStore();
 
 class MyHomePage extends StatelessWidget {
@@ -54,3 +56,4 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+*/
