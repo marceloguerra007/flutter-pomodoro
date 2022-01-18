@@ -24,7 +24,7 @@ abstract class _PomodoroStore with Store {
   bool started = false;
 
   @observable
-  IntervalType intervalType = IntervalType.REST;
+  IntervalType intervalType = IntervalType.WORK;
 
   Timer? timer;
 
@@ -53,25 +53,47 @@ abstract class _PomodoroStore with Store {
   @action
   void reset(){
     started = false;
+    stop();
+
+    minutes = isWorking() ? workTime : restTime;
+    seconds = 0;
   }
 
   void incrementWorkTime(){
     workTime++;
+
+    if (isWorking()){
+      reset();
+    }
   }
 
   @action
   void decrementWorkTime(){
-    workTime--;
+    if (workTime > 1)
+      workTime--;
+
+    if (isWorking()){
+      reset();
+    }
   }
 
   @action
   void incrementRestTime(){
     restTime++;
+
+    if (isResting()){
+      reset();
+    }
   }
 
   @action
   void decrementRestTime(){
-    restTime--;
+    if (restTime > 1)
+      restTime--;
+    
+    if (isResting()){
+      reset();
+    }
   }
 
   bool isWorking(){
