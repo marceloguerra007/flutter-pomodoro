@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro/store/pomodoro.store.dart';
+import 'package:provider/provider.dart';
 
 class TimeInput extends StatelessWidget {
   final int value;
   final String title;
   final Color titleColor;
+  final void Function()? inc;
+  final void Function()? dec;
   
   const TimeInput({ 
     required this.title,
     required this.titleColor,
-    required this.value
+    required this.value,
+    this.inc,
+    this.dec
   });
 
   @override
@@ -36,7 +42,7 @@ class TimeInput extends StatelessWidget {
                 shape: CircleBorder(),
                 padding: EdgeInsets.all(15)
               ),              
-              onPressed: (){}
+              onPressed: this.dec
             ),
             Text(
               '${this.value} min.',
@@ -53,7 +59,7 @@ class TimeInput extends StatelessWidget {
                 shape: CircleBorder(),
                 padding: EdgeInsets.all(15),                
               ),              
-              onPressed: (){}
+              onPressed: this.inc
             ),
           ],
         )
