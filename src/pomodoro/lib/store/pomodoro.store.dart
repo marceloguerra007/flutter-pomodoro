@@ -1,6 +1,8 @@
 import 'package:mobx/mobx.dart';
 import 'dart:async';
 
+import 'package:pomodoro/utils/sound.dart';
+
 part 'pomodoro.store.g.dart';
 
 class PomodoroStore = _PomodoroStore with _$PomodoroStore;
@@ -9,13 +11,13 @@ enum IntervalType {WORK, REST}
 
 abstract class _PomodoroStore with Store {
   @observable
-  int workTime = 2;
+  int workTime = 25;
 
   @observable
-  int restTime = 1;
+  int restTime = 3;
 
   @observable
-  int minutes = 2;
+  int minutes = 25;
 
   @observable
   int seconds = 0;
@@ -30,7 +32,8 @@ abstract class _PomodoroStore with Store {
 
   @action
   void start(){
-    started = true;
+    started = true;   
+    
     timer = Timer.periodic(
       Duration(seconds: 1), (timer) { 
         if (minutes == 0 && seconds == 0){
@@ -47,7 +50,7 @@ abstract class _PomodoroStore with Store {
   @action
   void stop(){
     started = false;
-    timer?.cancel();
+    timer?.cancel();  
   }
 
   @action
@@ -87,7 +90,7 @@ abstract class _PomodoroStore with Store {
   }
 
   @action
-  void decrementRestTime(){
+  Future<void> decrementRestTime() async {
     if (restTime > 1)
       restTime--;
     
@@ -113,5 +116,11 @@ abstract class _PomodoroStore with Store {
       minutes = workTime;
     }
     seconds = 0;
+
+    _playSound();
+  }
+
+  Future<void> _playSound() async {
+    await Sound.play();    
   }
 }

@@ -99,6 +99,14 @@ mixin _$PomodoroStore on _PomodoroStore, Store {
     });
   }
 
+  final _$decrementRestTimeAsyncAction =
+      AsyncAction('_PomodoroStore.decrementRestTime');
+
+  @override
+  Future<void> decrementRestTime() {
+    return _$decrementRestTimeAsyncAction.run(() => super.decrementRestTime());
+  }
+
   final _$_PomodoroStoreActionController =
       ActionController(name: '_PomodoroStore');
 
@@ -152,17 +160,6 @@ mixin _$PomodoroStore on _PomodoroStore, Store {
         name: '_PomodoroStore.incrementRestTime');
     try {
       return super.incrementRestTime();
-    } finally {
-      _$_PomodoroStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void decrementRestTime() {
-    final _$actionInfo = _$_PomodoroStoreActionController.startAction(
-        name: '_PomodoroStore.decrementRestTime');
-    try {
-      return super.decrementRestTime();
     } finally {
       _$_PomodoroStoreActionController.endAction(_$actionInfo);
     }
