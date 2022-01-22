@@ -47,26 +47,38 @@ abstract class _PomodoroStore with Store {
       });
   }
 
+  void _stop(){
+    started = false;
+    timer?.cancel();
+  }
+
   @action
   void stop(){
+    _stop();
+
+    Sound.dispose();
+  }
+
+  void _reset(){
     started = false;
-    timer?.cancel();  
+    _stop();
+
+    minutes = isWorking() ? workTime : restTime;
+    seconds = 0;
   }
 
   @action
   void reset(){
-    started = false;
-    stop();
+    _reset();
 
-    minutes = isWorking() ? workTime : restTime;
-    seconds = 0;
+    Sound.dispose();
   }
 
   void incrementWorkTime(){
     workTime++;
 
     if (isWorking()){
-      reset();
+      _reset();
     }
   }
 
@@ -76,7 +88,7 @@ abstract class _PomodoroStore with Store {
       workTime--;
 
     if (isWorking()){
-      reset();
+      _reset();
     }
   }
 
@@ -85,7 +97,7 @@ abstract class _PomodoroStore with Store {
     restTime++;
 
     if (isResting()){
-      reset();
+      _reset();
     }
   }
 
@@ -95,7 +107,7 @@ abstract class _PomodoroStore with Store {
       restTime--;
     
     if (isResting()){
-      reset();
+      _reset();
     }
   }
 
@@ -117,7 +129,7 @@ abstract class _PomodoroStore with Store {
     }
     seconds = 0;
 
-    _playSound();
+    _playSound();  
   }
 
   Future<void> _playSound() async {
